@@ -2,17 +2,54 @@ import { StyleSheet, Text, View, TouchableOpacity,FlatList,Image } from 'react-n
 import React,{useState, useEffect} from 'react'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import axios from 'axios';
+import {doc, updateDoc, getFirestore,collection, query, where , getDocs, FieldValue, arrayUnion} from "firebase/firestore";
+import firebase from 'firebase/compat';
 export default function TollPric ({navigation, route})  {
   const { from, to } = route.params 
  
-  
+  const [ docId, setDocId] = useState('')
   const [ data , setData  ] = useState([])
   const [ sum , setSum ] = useState('')
   // const charge = data.map(data.charge)
   // console.log(charge)
 
+  const db = getFirestore();
 
-  useEffect(()=>{
+  
+  const user = collection(db, "userData");
+  
+ 
+  const q = query(user, where("userid", "==", firebase.auth().currentUser.uid));
+ 
+    const AddHistory= async()=>{
+      const historyRef = doc(db, "userData", docId);
+      await updateDoc(historyRef, {
+        History: arrayUnion({
+          from: from, to: to
+        })
+        
+      // setModalVisible(!modalVisible)
+    })
+    
+  }
+
+
+
+  useEffect(()=>{   
+    const getData = async()=>{
+      
+      
+        const querySnapshot = await getDocs(q);
+        // setDocId(querySnapshot[0])
+        //  console.log("dsfs"+JSON.stringify(querySnapshot))
+        querySnapshot.forEach((doc) => {
+          setDocId(doc.id)
+          console.log(doc.id, " => ", doc.data());
+        });
+    }
+    getData()
+
+
       const getTolls=async()=>{
      
       const options = {
@@ -72,7 +109,7 @@ export default function TollPric ({navigation, route})  {
     <View style={styles.container}>
     <View style={styles.horizontalCont}>
       <Text style={styles.title}>Tolls</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={()=>{navigation.navigate("Pay");AddHistory();}} style={styles.button}>
             <Text>Pay {sum}</Text>
       </TouchableOpacity>
     </View>

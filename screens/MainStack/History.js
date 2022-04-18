@@ -3,46 +3,50 @@ import { View, StyleSheet, Text, FlatList, Image } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { LinearGradient } from 'expo-linear-gradient';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {doc, updateDoc, getFirestore,collection, query, where , getDocs, FieldValue, arrayUnion} from "firebase/firestore";
+import firebase from 'firebase/compat';
 export default function History(){
-    // const [history, setHistory]= useState([])
-    // useEffect(()=>{
-    //     const getHistoy=async()=>{
-    //         const tokenValue = await AsyncStorage.getItem('Token')
-    //         const numberValue = await AsyncStorage.getItem('PhoneNumber')
-    //         axios.post('http://192.168.29.244:5000/user-history',
-    //         {
-    //             phone: numberValue    
-    //         },
-    //         {
-    //             headers:{
-    //                 'Authorization': `Bearer ${tokenValue}`
-    //             }
-    //         })
-    //         .then(res=>{
-    //             console.log(res.data)
-    //             const data = []
-    //             res.data.data.forEach(element => {
-    //                 data.push({
-    //                     from : element.from,
-    //                     to : element.to,
-    //                     charge : element.charge
-    //                 })
+   const [history , setHistory ] = useState([])
+   const [ docId, setDocId] = useState('')
+   const db = getFirestore();
 
-    //             });
-    //             setHistory(data)
-    //         })
-    //         .catch(err=>{console.log(err)})
-    //     }
-    //     getHistoy()
-    // },[])
+  
+  const user = collection(db, "userData");
+  
+ 
+  const q = query(user, where("userid", "==", firebase.auth().currentUser.uid));
 
+
+  useEffect(()=>{   
+    const getData = async()=>{
+      
+        
+      
+        const querySnapshot = await getDocs(q);
+        // setDocId(querySnapshot[0])
+        //  console.log("dsfs"+JSON.stringify(querySnapshot))
+        querySnapshot.forEach((doc) => {
+          setDocId(doc.id)
+          console.log(doc.id, " => ", doc.data());
+          const data = []
+            doc.data().History.forEach(element=>{
+                data.push({
+                from: element.from,
+                to: element.to
+                })
+            });
+            setHistory(data)
+        });
+    }
+    getData()
+},
+[]);
     return(
         <View style={styles.container}>
             <Text style={styles.titleFont}>
                 History
             </Text>
-            {/* <FlatList keyExtractor={(item, index)=> index.toString()} data={history} renderItem={({item})=>(
+            <FlatList keyExtractor={(item, index)=> index.toString()} data={history} renderItem={({item})=>(
                     <View style={styles.cardStyle}>
                         <Image style={styles.iconStyle} source={require('../../assets/icons/travel.png')}></Image>
                     <View style={{flexDirection:'column'}}>
@@ -50,13 +54,21 @@ export default function History(){
                         <Text style={styles.cardText}>To: {item.to}</Text>
                        
                     </View>
-                    <Text style={styles.cardText}>Charge: ₹{item.charge}</Text>
+                    <Text style={styles.cardText}>Charge: ₹{item.charge?item.charge:"N-A"}</Text>
                     </View>
             )
 
-            }>
+            }
+            ListEmptyComponent={()=>(
+                <View>
+                <Text style={{color: 'white', alignSelf: 'center', marginTop: hp('20%')}}>Loading tolls...</Text>
+                
+                </View>
+            )}
+            
+            >
 
-            </FlatList> */}
+            </FlatList>
         </View>
     )
 }

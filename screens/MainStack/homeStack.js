@@ -9,7 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import PlanJourney from './HomeStack/PlanJourney'
 import Plan from './HomeStack/plan';
 import TollPrice from './HomeStack/TollPrice';
-
+import Pay from './HomeStack/Pay'
 const Stack = createStackNavigator();
 export default function HomeStack() {
   return (
@@ -31,7 +31,7 @@ export default function HomeStack() {
         {/* <Stack.Screen name = "BuyFasTag" component={BuyFasTag}/> */}
         <Stack.Screen name = 'CheckBalance' component={Balance}/>
         <Stack.Screen name = "Manage" component={Manage}/>
-        {/* <Stack.Screen name = 'Add' component={AddFasTag}/> */}
+        <Stack.Screen name = 'Pay' component={Pay}/>
         {/* <Stack.Screen name = 'Rewards' component={Rewards}/>  */}
       </Stack.Navigator>
     </NavigationContainer>
