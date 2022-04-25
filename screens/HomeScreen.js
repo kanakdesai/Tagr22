@@ -3,6 +3,7 @@ import { View, SafeAreaView,StyleSheet, Text, Image, TouchableOpacity } from 're
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Surface, Checkbox } from 'react-native-paper';
+
 export default function HomeScreen({navigation}){
     return(
         <LinearGradient start={{x: 3, y: 0}} end={{x: 6, y: 3}} colors={['#252525', '#572400']} style={styles.container}>

@@ -5,11 +5,12 @@ import axios from 'axios';
 import {doc, updateDoc, getFirestore,collection, query, where , getDocs, FieldValue, arrayUnion} from "firebase/firestore";
 import firebase from 'firebase/compat';
 export default function TollPric ({navigation, route})  {
-  const { from, to } = route.params 
+  const { from, to , apiKey} = route.params 
  
   const [ docId, setDocId] = useState('')
   const [ data , setData  ] = useState([])
   const [ sum , setSum ] = useState('')
+  // const [apiKey, setApiKey] = useState('')
   // const charge = data.map(data.charge)
   // console.log(charge)
 
@@ -17,8 +18,8 @@ export default function TollPric ({navigation, route})  {
 
   
   const user = collection(db, "userData");
-  
- 
+  const api = collection(db,"api" );
+  const s = query(api, where("api","==","api"));
   const q = query(user, where("userid", "==", firebase.auth().currentUser.uid));
  
     const AddHistory= async()=>{
@@ -36,10 +37,27 @@ export default function TollPric ({navigation, route})  {
 
 
   useEffect(()=>{   
+  //   const getApi = async()=>{
+      
+      
+  //     const querySnapshot = await getDocs(s);
+      
+  //     // setDocId(querySnapshot[0])
+  //     //  console.log("dsfs"+JSON.stringify(querySnapshot))
+  //     querySnapshot.forEach( (doc) => {
+        
+        
+  //       setApiKey(doc.data().apiKey);
+  //       console.log('this is'+apiKey);
+  //     });
+      
+  // }
+  // getApi()
     const getData = async()=>{
       
       
         const querySnapshot = await getDocs(q);
+        
         // setDocId(querySnapshot[0])
         //  console.log("dsfs"+JSON.stringify(querySnapshot))
         querySnapshot.forEach((doc) => {
@@ -48,6 +66,7 @@ export default function TollPric ({navigation, route})  {
         });
     }
     getData()
+    
 
 
       const getTolls=async()=>{
@@ -55,7 +74,7 @@ export default function TollPric ({navigation, route})  {
       const options = {
           method: 'POST',
           url: 'https://dev.tollguru.com/v1/calc/here',
-          headers: {'content-type': 'application/json', 'x-api-key': 'DQhP8LgpR72p6PMQh2tpQMpMnM9rTg7M'},
+          headers: {'content-type': 'application/json', 'x-api-key': apiKey },
           data: {
               from: {address: from},
               to: {address: to},

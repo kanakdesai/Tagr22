@@ -7,6 +7,8 @@ import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { auth } from '../../firebase'
 import RNRestart from 'react-native-restart';
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Setting a timer for a long period of time'])
 // import { getFirestore, addDoc,documentId,getInstance, getCurrentUser, getUid, Firestore } from 'firebase/firestore';
 const Profile = () => {
   const [name , setName ] = useState('')

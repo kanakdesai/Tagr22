@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import * as React from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import Balance from './HomeStack/Balance'
 import HomeScreen from '../HomeScreen';
@@ -10,6 +10,7 @@ import PlanJourney from './HomeStack/PlanJourney'
 import Plan from './HomeStack/plan';
 import TollPrice from './HomeStack/TollPrice';
 import Pay from './HomeStack/Pay'
+import Recharge from './HomeStack/recharge'
 const Stack = createStackNavigator();
 export default function HomeStack() {
   return (
@@ -25,7 +26,7 @@ export default function HomeStack() {
         <Stack.Screen name="Plan" component={Plan}/>
 
         <Stack.Screen name="TollPrice" component={TollPrice}/>
-        {/* <Stack.Screen name = "Recharge" component={Recharge}/> */}
+        <Stack.Screen name = "Recharge" component={Recharge}/>
         {/* <Stack.Screen name = 'Pay' component={Pay}/> */}
         {/* <Stack.Screen name = 'Stripe' component={Stripe}/> */}
         {/* <Stack.Screen name = "BuyFasTag" component={BuyFasTag}/> */}

@@ -5,6 +5,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import {doc, updateDoc, getFirestore,collection, query, where , getDocs, FieldValue, arrayUnion} from "firebase/firestore";
 import firebase from 'firebase/compat';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['Setting a timer for a long period of time'])
 export default function History(){
    const [history , setHistory ] = useState([])
    const [ docId, setDocId] = useState('')

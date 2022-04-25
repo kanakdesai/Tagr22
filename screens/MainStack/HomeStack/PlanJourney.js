@@ -5,6 +5,9 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import { auth } from '../../../firebase'
 import {doc, updateDoc, getFirestore,collection, query, where , getDocs, FieldValue, arrayUnion} from "firebase/firestore";
 import firebase from 'firebase/compat';
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Setting a timer for a long period of time'])
+
 export default function PlanJourney  ({navigation})  {
  
   const [vehicles, setVehicles ] = useState([])
@@ -59,7 +62,14 @@ export default function PlanJourney  ({navigation})  {
                     </View>
                     
                     </TouchableOpacity>
-            )}>
+            )}
+            ListEmptyComponent={()=>(
+                <View>
+                <Text style={{color: 'white', alignSelf: 'center', marginTop: hp('20%')}}>Loading Tags...</Text>
+                
+                </View>
+            )}
+            >
 
      </FlatList>
     </View>

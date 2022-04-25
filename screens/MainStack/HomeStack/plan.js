@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput , TouchableOpacity} from 'react-native'
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import RNPickerSelect from 'react-native-picker-select';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { auth } from '../../../firebase'
@@ -10,6 +10,32 @@ export default function Plan ({navigation, route}) {
     console.log("fdsaf"+item.fasTag)
     const [from , setFrom ] = useState('')
     const [to, setTo ] = useState('')
+    const [apiKey, setApiKey] = useState('')
+  // const charge = data.map(data.charge)
+  // console.log(charge)
+
+   const db = getFirestore();
+
+    const api = collection(db,"api" );
+    const s = query(api, where("api","==","api"))
+    useEffect(()=>{
+      const getApi = async()=>{
+      
+      
+        const querySnapshot = await getDocs(s);
+        
+        // setDocId(querySnapshot[0])
+        //  console.log("dsfs"+JSON.stringify(querySnapshot))
+        querySnapshot.forEach( (doc) => {
+          
+          
+          setApiKey(doc.data().apiKey);
+          console.log('this is'+apiKey);
+        });
+        
+    }
+    getApi()
+    },[])
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Plan Journey</Text>
@@ -20,7 +46,7 @@ export default function Plan ({navigation, route}) {
       <TextInput value={to} onChangeText={text=>setTo(text)} placeholder='To' style={styles.Input}>
 
       </TextInput>
-      <TouchableOpacity onPress={()=>navigation.navigate("TollPrice",{from, to})} style={styles.Button}>
+      <TouchableOpacity onPress={()=>navigation.navigate("TollPrice",{from, to, apiKey})} style={styles.Button}>
             <Text style={{fontSize: hp('2.5%'), fontWeight: '300'}}>Plan</Text>
       </TouchableOpacity>
     </View>
