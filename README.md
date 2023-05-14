@@ -1,4 +1,4 @@
-<a href="tagr.co.in"># Tagr </a>
+# Tagr 
 
 
 ## About The Project
