@@ -1,24 +1,18 @@
-# Tagr22
+# Tagr
 
 
 ## About The Project
 
-<!-- ![](https://github.com/kanakdesai/react-native-twitter-card/blob/main/light.png) -->
-<!-- <a href="url"><img src="https://github.com/kanakdesai/EasyFood/blob/main/screenShots/homeSS.png" align="center" height="480" width="240" ></a>
-<a href="url"><img src="https://github.com/kanakdesai/EasyFood/blob/main/screenShots/CatSS.png" align="center" height="480" width="240"></a>
-<a href="url"><img src="https://github.com/kanakdesai/EasyFood/blob/main/screenShots/countSS.png" align="center" height="480" width="240"></a>
-<a href="url"><img src="https://github.com/kanakdesai/EasyFood/blob/main/screenShots/recipeSS.png" align="center" height="480" width="240"></a> -->
-<!-- ![Alt text](https://github.com/kanakdesai/Tagr22/blob/main/assets/second.png) -->
+
 
 ![second](https://github.com/kanakdesai/Tagr22/assets/59912451/9500ad73-f57e-4ecc-aa6d-e547157b01da)
 
+![first](https://github.com/kanakdesai/Tagr22/assets/59912451/5416876e-4011-4310-9910-fd662b3c6604)
 
 <br/>
 <br/>
 
-This project is developed using React Native.
-Get recipes according to categories and countries.
-<a href="https://www.themealdb.com/api.php">MealDB api is used for this project for all the recipes</a>
+<a href="tagr.co.in">Tagr</a> is a toll payments and lending platform through which we allow users to plan their journey and recharge their FasTags accordingly. We even provide credit through our post-paid FasTags to fleet owners through which they can pay for their tolls and fuel through their FasTag without having to worry about recharging it.
 
 
 
